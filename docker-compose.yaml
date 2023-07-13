@@ -1,0 +1,20 @@
+version: '3.9'
+
+volumes:
+  config-dir:
+    name: config-dir
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${PWD}/config
+
+services:
+  home-print-web:
+    image: xbf321/home-print-web
+    container_name: home-print-web
+    restart: always
+    ports:
+      - 7001:7001
+    volumes:
+      - config-dir:/root/app/config

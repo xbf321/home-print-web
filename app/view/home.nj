@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>家庭IPP打印WebServer</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://releases.transloadit.com/uppy/v3.7.0/uppy.min.css"
+    />
+    <script src="https://releases.transloadit.com/uppy/v3.7.0/uppy.min.js"></script>
+    <style>
+      .container {
+        max-width: 100rem;
+        padding-top: 2rem;
+      }
+      .mb-10 {
+        margin-bottom: 10px;
+      }
+      .announcement {
+        background-color: #eff8ff;
+        color: #042866;
+        padding: 7px 12px;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="container">
+      <div id="uppy" class="mb-10"></div>
+      {% if messageCode == 1 %}
+      <div class="announcement mb-10">删除成功</div>
+      {% endif %} {% if messageCode == 2 %}
+      <div class="announcement mb-10">打印成功</div>
+      {% endif %}
+      <div>
+        {% if status == 1 %}
+        <a class="button button-outline" href="/">待打印任务</a>
+        <a class="button" href="?status=1">所有任务</a>
+        {% else %}
+        <a class="button" href="/">待打印任务</a>
+        <a class="button button-outline" href="?status=1">所有任务</a>
+        {% endif %}
+      </div>
+      <form id="submitForm" action="/" method="post">
+        <input type="hidden" id="action" name="action" value="" />
+        <input type="hidden" id="selectedId" name="selectedId" value="" />
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th width="230px">操作</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in files %}
+            <tr>
+              <td>{{ item.name }}</td>
+              <td>
+                <input
+                  class="button button-outline"
+                  type="button"
+                  value="
+                {% if item.printed === false %}
+                打印
+                {% else %}
+                重新打印
+                {% endif %}
+                "
+                  onclick="onPrint({{ item.id }})"
+                />
+                <input
+                  class="button button-outline"
+                  type="button"
+                  value="删除"
+                  onclick="onDelete({{ item.id }})"
+                />
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        {% if files.length === 0 %}
+        <div>暂无任务</div>
+        {% endif %}
+      </form>
+    </section>
+    <script>
+      const uppy = new Uppy.Uppy();
+      uppy.setOptions({
+        debug: true,
+        restrictions: {
+          allowedFileTypes: [".jpg", ".pdf", ".doc", ".docx", ".png"],
+          maxNumberOfFiles: 1,
+        },
+        autoProceed: true,
+      });
+      uppy.use(Uppy.Dashboard, {
+        inline: true,
+        target: "#uppy",
+        width: 960,
+        height: 200,
+      });
+      uppy.use(Uppy.XHRUpload, {
+        endpoint: "/api/upload?_csrf={{ ctx.csrf | safe }}",
+        getResponseData: (response) => {
+          return {
+            url: response,
+          };
+        },
+      });
+      uppy.on("complete", (file) => {
+        window.location.href = "/";
+      });
+      const actionObj = document.getElementById("action");
+      const formObj = document.getElementById("submitForm");
+      const selectedIdObj = document.getElementById("selectedId");
+      function onDelete(id) {
+        if (window.confirm("确认要删除吗?")) {
+          actionObj.value = "delete";
+          selectedIdObj.value = id;
+          formObj.submit();
+        }
+      }
+      function onPrint(id) {
+        if (window.confirm("确认要打印?")) {
+          actionObj.value = "print";
+          selectedIdObj.value = id;
+          formObj.submit();
+        }
+      }
+    </script>
+  </body>
+</html>
