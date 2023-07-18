@@ -47,6 +47,8 @@
       <div class="announcement mb-10">删除成功</div>
       {% endif %} {% if messageCode == 2 %}
       <div class="announcement mb-10">打印成功</div>
+      {% endif %} {% if messageCode == 3 %}
+      <div class="announcement mb-10">打印失败，请查看日志。</div>
       {% endif %}
       <div>
         {% if status == 1 %}

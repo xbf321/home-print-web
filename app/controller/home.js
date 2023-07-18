@@ -17,8 +17,8 @@ class HomeController extends Controller {
         messageCode = 1;
       }
       if (action.toLocaleUpperCase() === 'PRINT') {
-        await ctx.service.files.print(selectedId);
-        messageCode = 2;
+        const isSuccess = await ctx.service.files.print(selectedId);
+        messageCode = isSuccess === true ? 2 : 3;
       }
     }
     const files = await ctx.service.files.find(status === 1);

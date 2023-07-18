@@ -1,3 +1,20 @@
 {
-    "files": []
+    "files": [
+        {
+            "id": 1689673571684,
+            "name": "1689673571679_74F713B9-27B1-451C-85AF-FD7432120F62.jpg",
+            "fullPath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/1689673571679_74F713B9-27B1-451C-85AF-FD7432120F62.jpg",
+            "printed": true,
+            "mimeType": "image/jpeg",
+            "date": "2023-07-18 17:46:11"
+        },
+        {
+            "id": 1689673624640,
+            "name": "1689673624634_74F713B9-27B1-451C-85AF-FD7432120F62.jpg",
+            "fullPath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/1689673624634_74F713B9-27B1-451C-85AF-FD7432120F62.jpg",
+            "printed": false,
+            "mimeType": "image/jpeg",
+            "date": "2023-07-18 17:47:04"
+        }
+    ]
 }
