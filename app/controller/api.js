@@ -41,7 +41,13 @@ class APIController extends Controller {
         });
       });
     };
-    const res = await getPrinterAttributes();
+    let res = null;
+    try {
+      res = await getPrinterAttributes();
+    } catch (err) {
+      res = err;
+      this.ctx.logger.error(err);
+    }
     this.ctx.body = res;
   }
 }
