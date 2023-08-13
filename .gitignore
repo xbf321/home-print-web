@@ -14,3 +14,5 @@ run/
 typings/
 .nyc_output/
 uploads/
+.github
+config/db.json

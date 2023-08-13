@@ -15,6 +15,22 @@
             "printed": false,
             "mimeType": "image/jpeg",
             "date": "2023-07-18 17:47:04"
+        },
+        {
+            "id": 1691932202680,
+            "name": "1691932202665_58cf41d682da5.png",
+            "fullPath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/1691932202665_58cf41d682da5.png",
+            "printed": true,
+            "mimeType": "image/png",
+            "date": "2023-08-13 21:10:02"
+        },
+        {
+            "id": 1691932988421,
+            "name": "1691932988415_test.docx",
+            "fullPath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/1691932988415_test.docx",
+            "printed": true,
+            "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+            "date": "2023-08-13 21:23:08"
         }
     ]
 }

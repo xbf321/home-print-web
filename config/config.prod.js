@@ -7,7 +7,7 @@ module.exports = () => {
       userPassword: 'test',
     },
     // 因为家里有两台打印机，所以是一个数组
-    printers: [ 'http://192.168.100.1:631/ipp/printer' ],
+    printers: [ 'http://192.168.100.1:631/printers/HP1106' ],
   };
 
   return {

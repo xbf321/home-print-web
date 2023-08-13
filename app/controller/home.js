@@ -1,8 +1,7 @@
 'use strict';
 
+const ipp = require('ipp');
 const { Controller } = require('egg');
-
-
 class HomeController extends Controller {
   async index() {
     const { ctx } = this;
@@ -27,6 +26,27 @@ class HomeController extends Controller {
       status,
       messageCode,
     });
+  }
+
+  async test() {
+    const printer = ipp.Printer('http://192.168.100.1:631/printers/HP1106');
+    const getPrinterInfo = () => {
+      return new Promise((resolve, reject) => {
+        printer.execute('Get-Printer-Attributes', null, (err, res) => {
+          console.info(err, res);
+          if (err) {
+            reject(err);
+          } else {
+            resolve(res);
+          }
+        });
+      });
+    };
+    try {
+      await getPrinterInfo();
+    } catch (err) {
+      console.error(err);
+    }
   }
 }
 

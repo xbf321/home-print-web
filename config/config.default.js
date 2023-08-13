@@ -42,7 +42,7 @@ module.exports = appInfo => {
       userName: 'test',
       userPassword: 'test',
     },
-    printers: [ 'http://192.168.100.1:631/ipp/printer' ],
+    printers: [ 'http://192.168.100.1:631/printers/HP1106' ],
   };
 
   return {
