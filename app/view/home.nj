@@ -107,7 +107,7 @@
       uppy.setOptions({
         debug: true,
         restrictions: {
-          allowedFileTypes: [".jpg", ".pdf", ".doc", ".docx", ".png"],
+          allowedFileTypes: [".jpg", ".pdf", ".doc", ".docx", ".png", '.xls', '.xlsx', '.csv'],
           maxNumberOfFiles: 1,
         },
         autoProceed: true,

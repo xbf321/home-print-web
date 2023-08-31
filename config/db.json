@@ -1,36 +1,28 @@
 {
     "files": [
         {
-            "id": 1689673571684,
-            "name": "1689673571679_74F713B9-27B1-451C-85AF-FD7432120F62.jpg",
-            "fullPath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/1689673571679_74F713B9-27B1-451C-85AF-FD7432120F62.jpg",
+            "id": 1693479528864,
+            "name": "1693479528859_test.docx",
+            "fullPath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/2a337f52-b09d-4fff-ab0e-5e7276ae3b52.docx.pdf",
             "printed": true,
-            "mimeType": "image/jpeg",
-            "date": "2023-07-18 17:46:11"
+            "mimeType": "application/pdf",
+            "date": "2023-08-31 18:58:48"
         },
         {
-            "id": 1689673624640,
-            "name": "1689673624634_74F713B9-27B1-451C-85AF-FD7432120F62.jpg",
-            "fullPath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/1689673624634_74F713B9-27B1-451C-85AF-FD7432120F62.jpg",
+            "id": 1693479998882,
+            "name": "1693479998877_test.xlsx",
+            "fullPath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/1968872b-10a3-4644-8291-26d9c865e870.xlsx.pdf",
+            "printed": true,
+            "mimeType": "application/pdf",
+            "date": "2023-08-31 19:06:38"
+        },
+        {
+            "id": 1693482345119,
+            "name": "1693482345115_9ab30de2df0445ee8ef6616f4ff16438.png",
+            "fullPath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/2a7fd129-9ebe-4248-a9f9-8730b7e1a09f.png",
             "printed": false,
-            "mimeType": "image/jpeg",
-            "date": "2023-07-18 17:47:04"
-        },
-        {
-            "id": 1691932202680,
-            "name": "1691932202665_58cf41d682da5.png",
-            "fullPath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/1691932202665_58cf41d682da5.png",
-            "printed": true,
             "mimeType": "image/png",
-            "date": "2023-08-13 21:10:02"
-        },
-        {
-            "id": 1691932988421,
-            "name": "1691932988415_test.docx",
-            "fullPath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/1691932988415_test.docx",
-            "printed": true,
-            "mimeType": "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-            "date": "2023-08-13 21:23:08"
+            "date": "2023-08-31 19:45:45"
         }
     ]
 }

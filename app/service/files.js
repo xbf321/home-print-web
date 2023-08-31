@@ -1,5 +1,3 @@
-const ipp = require('ipp');
-const fs = require('fs-extra');
 const dayjs = require('dayjs');
 const { Service } = require('egg');
 
@@ -26,36 +24,10 @@ class FilesService extends Service {
     const index = await this.ctx.db.getIndex('/files', parseInt(id, 10));
     const path = `/files[${index}]`;
     const item = await this.ctx.db.getData(path);
-    const { name: jobName, mimeType, fullPath } = item;
-    // TODO：
-    // 现阶段先使用第一个打印机，后续可以支持选择打印机打印
-    const [ defaultPrinter ] = this.ctx.app.config.printers;
-    // 1. 调用 IPP 打印
-    const printer = ipp.Printer(defaultPrinter);
-    const sendPrintJob = msg => {
-      return new Promise((resolve, reject) => {
-        printer.execute('Print-Job', msg, (err, res) => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(res);
-          }
-        });
-      });
-    };
-    let isSuccess = false;
+    let isPrintSuccess = false;
     try {
-      const fileStream = await fs.readFile(fullPath);
-      const msg = {
-        'operation-attributes-tag': {
-          'requesting-user-name': 'Web',
-          'job-name': jobName,
-          'document-format': mimeType,
-        },
-        data: fileStream,
-      };
-      await sendPrintJob(msg);
-      // 2. 更新当前数据
+      isPrintSuccess = await this.ctx.service.ipp.print(item);
+      // 更新DB
       await this.ctx.db.push(
         path,
         {
@@ -64,11 +36,10 @@ class FilesService extends Service {
         },
         true
       );
-      isSuccess = true;
     } catch (err) {
       this.ctx.logger.error(err);
     }
-    return isSuccess;
+    return isPrintSuccess;
   }
 
   async find(isShowAll = false) {

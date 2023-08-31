@@ -7,6 +7,7 @@
     "declarations": true
   },
   "dependencies": {
+    "cloudconvert": "^2.3.4",
     "dayjs": "^1.11.9",
     "egg": "^3",
     "egg-scripts": "^2",
@@ -28,7 +29,7 @@
   "scripts": {
     "start": "egg-scripts start --title=egg-server-home-print-web",
     "stop": "egg-scripts stop --title=egg-server-home-print-web",
-    "dev": "egg-bin dev",
+    "dev": "egg-bin dev --port 7020",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
     "test-local": "egg-bin test",

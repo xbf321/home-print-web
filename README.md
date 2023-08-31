@@ -32,7 +32,7 @@ services:
     container_name: home-print-web
     restart: always
     ports:
-      - 7001:7001
+      - 7020:7020
     volumes:
       - config-dir:/root/app/config
 ```
@@ -55,8 +55,6 @@ module.exports = () => {
       userName: 'root',
       userPassword: 'root',
     },
-    // 因为家里有两台打印机，所以是一个数组
-    printers: [ 'http://192.168.100.1:631/printers/HP1106' ],
   };
 
   return {
@@ -86,7 +84,7 @@ docker-compose up -d
 ```bash
 npm i
 npm run dev
-open http://localhost:7001/
+open http://localhost:7020/
 ```
 
 构建 Docker 镜像
@@ -99,7 +97,7 @@ docker build -t xbf321/home-print-web .
 
 ```shell
 # 后台运行
-docker run -d -p 7001:7001 --name home-print-web xbf321/home-print-web
+docker run -d -p 7020:7020 --name home-print-web xbf321/home-print-web
 # 临时运行
 docker run -it --name home-print-web xbf321/home-print-web
 # 进入容器内部
