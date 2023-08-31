@@ -80,6 +80,7 @@ docker-compose up -d
 * CSS 基于[milligram](https://milligram.io/)
 * JSON 存储基于[node-json-db](https://github.com/Belphemur/node-json-db)
 * IPP 协议基于[ipp](https://github.com/williamkapke/ipp)
+* 因为 CUPS 不支持 word/excel 打印，针对这些文件使用[CloudConver](https://cloudconvert.com/)转换
 
 ```bash
 npm i
