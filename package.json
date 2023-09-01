@@ -1,7 +1,7 @@
 {
   "name": "home-print-web",
   "version": "1.0.0",
-  "description": "",
+  "description": "home-print-web",
   "private": true,
   "egg": {
     "declarations": true
@@ -31,21 +31,6 @@
     "start": "egg-scripts start --title=egg-server-home-print-web",
     "stop": "egg-scripts stop --title=egg-server-home-print-web",
     "dev": "egg-bin dev --port 7020",
-    "debug": "egg-bin debug",
-    "test": "npm run lint -- --fix && npm run test-local",
-    "test-local": "egg-bin test",
-    "cov": "egg-bin cov",
-    "lint": "eslint .",
-    "ci": "npm run lint && npm run cov"
-  },
-  "ci": {
-    "version": "16, 18",
-    "type": "github"
-  },
-  "repository": {
-    "type": "git",
-    "url": ""
-  },
-  "author": "",
-  "license": "MIT"
+    "debug": "egg-bin debug"
+  }
 }

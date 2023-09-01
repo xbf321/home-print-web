@@ -15,6 +15,6 @@ services:
     container_name: home-print-web
     restart: always
     ports:
-      - 7001:7001
+      - 7020:7020
     volumes:
       - config-dir:/root/app/config
