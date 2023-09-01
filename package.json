@@ -11,6 +11,7 @@
     "dayjs": "^1.11.9",
     "egg": "^3",
     "egg-scripts": "^2",
+    "egg-static": "^2.3.1",
     "egg-view-nunjucks": "^2.3.0",
     "fs-extra": "^11.1.1",
     "ipp": "^2.0.1",

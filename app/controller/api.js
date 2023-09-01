@@ -62,7 +62,8 @@ class APIController extends Controller {
 
   async checkPrinter() {
     const response = await this.ctx.service.ipp.checkPrinter();
-    this.ctx.body = response;
+    this.ctx.set('printer-stauts', response);
+    this.ctx.status = 200;
   }
 
   async getPrinterInfo() {
