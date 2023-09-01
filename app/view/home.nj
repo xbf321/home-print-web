@@ -14,10 +14,34 @@
       href="/public/uppy.min.css"
     />
     <script src="/public/uppy.min.js"></script>
+    <script src="/public/uppy.zh_CN.min.js"></script>
     <style>
       .container {
         max-width: 100rem;
         padding-top: 2rem;
+      }
+      .button,input[type='button'] {
+        color: #fff;
+        background: #0a70f5;
+        border: 0.1rem solid #0a70f5;
+        height: 32px;
+        line-height: 32px;
+        padding: 0 12px;
+        font-size: 14px;
+        cursor: pointer;
+        outline: none;
+        text-align: center;
+        font-weight: 400;
+      }
+      .button.button-outline,input[type='button'].button-outline {
+        color: rgba(0,0,0,.84);
+        background: #fff;
+        border: 1px solid rgba(0,0,0,.12);
+      }
+      .button.button-text {
+        color: #0a70f5 !important;
+        border-color: rgba(0,0,0,0)!important;
+        background-color: rgba(0,0,0,0);
       }
       .mb-10 {
         margin-bottom: 10px;
@@ -28,6 +52,10 @@
         padding: 7px 12px;
         border-radius: 4px;
       }
+      .announcement.warning {
+        background-color: #fff9e6;
+        color: #592d00;
+      }
       .announcement.success {
         background-color: #edfaf3;
         color: #00b365;
@@ -36,7 +64,7 @@
   </head>
   <body>
     <section class="container">
-      <div class="announcement mb-10" id="js_printer_status">正在查询打印机状态...，查询时，不要执行「打印」功能。</div>
+      <div class="announcement warning mb-10" id="js_printer_status">正在查询打印机状态...，查询时，不要执行「打印」功能。</div>
       <div id="uppy" class="mb-10"></div>
       {% if messageCode == 1 %}
       <div class="announcement mb-10">删除成功</div>
@@ -82,7 +110,7 @@
                   onclick="onPrint({{ item.id }})"
                 />
                 <input
-                  class="button button-outline"
+                  class="button button-outline button-text"
                   type="button"
                   value="删除"
                   onclick="onDelete({{ item.id }})"
@@ -101,6 +129,7 @@
       const uppy = new Uppy.Uppy();
       uppy.setOptions({
         debug: true,
+        locale: Uppy.locales.zh_CN,
         restrictions: {
           allowedFileTypes: [".jpg", ".pdf", ".doc", ".docx", ".png", '.xls', '.xlsx', '.csv'],
           maxNumberOfFiles: 1,

@@ -10,12 +10,13 @@ class HomeController extends Controller {
     let messageCode = 0;
     if (method.toLocaleUpperCase() === 'POST') {
       const { action, selectedId } = body;
+      const id = parseInt(selectedId, 10);
       if (action.toLocaleUpperCase() === 'DELETE') {
-        await ctx.service.files.remove(selectedId);
+        await ctx.service.files.remove(id);
         messageCode = 1;
       }
       if (action.toLocaleUpperCase() === 'PRINT') {
-        const isSuccess = await ctx.service.files.print(selectedId);
+        const isSuccess = await ctx.service.files.print(id);
         messageCode = isSuccess === true ? 2 : 3;
       }
     }

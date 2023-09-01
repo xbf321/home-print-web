@@ -15,16 +15,22 @@ class FilesService extends Service {
   }
 
   async remove(id) {
-    const index = await this.ctx.db.getIndex('/files', parseInt(id, 10));
+    const index = await this.ctx.db.getIndex('/files', id);
+    if (index < 0) {
+      return false;
+    }
     const path = `/files[${index}]`;
     await this.ctx.db.delete(path);
   }
 
   async print(id) {
-    const index = await this.ctx.db.getIndex('/files', parseInt(id, 10));
+    let isPrintSuccess = false;
+    const index = await this.ctx.db.getIndex('/files', id);
+    if (id < 0) {
+      return isPrintSuccess;
+    }
     const path = `/files[${index}]`;
     const item = await this.ctx.db.getData(path);
-    let isPrintSuccess = false;
     try {
       isPrintSuccess = await this.ctx.service.ipp.print(item);
       // 更新DB
