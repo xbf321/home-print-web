@@ -1,3 +1,4 @@
+const fs = require('fs-extra');
 const dayjs = require('dayjs');
 const { Service } = require('egg');
 
@@ -20,6 +21,10 @@ class FilesService extends Service {
       return false;
     }
     const path = `/files[${index}]`;
+    const item = await this.ctx.db.getData(path);
+    // 删除物理文件
+    await fs.remove(item.fullPath);
+    // 删除 DB
     await this.ctx.db.delete(path);
   }
 
