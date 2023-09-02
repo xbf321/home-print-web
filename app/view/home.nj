@@ -173,17 +173,23 @@
       const printerStatus = false;
       const printerStatusNode = document.getElementById('js_printer_status');
       let printerStatusInterval = null;
-      function checkPrinterInfo() {
-        fetch('/api/checkPrinter', { method: 'HEAD', signal: AbortSignal.timeout(1500) }).then(() => {
-          printerStatusNode.innerHTML = '打印机可用。';
-          printerStatusNode.classList.add("success");
-          window.clearInterval(printerStatusInterval);
+      function getPrinterInfo() {
+        fetch('/api/getPrinterInfo', { method: 'HEAD', signal: AbortSignal.timeout(1500) }).then((response) => {
+          const printerState = response.headers.get('printer-state');
+          const printerStateMessage = response.headers.get('printer-state-message');
+          if (printerState === 'idle') {
+            printerStatusNode.innerHTML = '打印机可用。';
+            printerStatusNode.classList.add("success");
+            window.clearInterval(printerStatusInterval);
+            return;
+          }
+          printerStatusNode.innerHTML = `${printerState}, ${printerStateMessage}`;
         }).catch((err) => {
           console.error(err);
         });
       }
-      printerStatusInterval = window.setInterval(checkPrinterInfo, 3000);
-      checkPrinterInfo();
+      printerStatusInterval = window.setInterval(getPrinterInfo, 3000);
+      getPrinterInfo();
     </script>
   </body>
 </html>

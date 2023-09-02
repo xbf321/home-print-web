@@ -60,14 +60,15 @@ class APIController extends Controller {
     });
   }
 
-  async checkPrinter() {
-    const response = await this.ctx.service.ipp.checkPrinter();
-    this.ctx.set('printer-stauts', response);
-    this.ctx.status = 200;
-  }
-
   async getPrinterInfo() {
-    const response = await this.ctx.service.ipp.getPrinterInfo();
+    const response = (await this.ctx.service.ipp.getPrinterInfo()) || {};
+    const {
+      'printer-state': printerState,
+      'printer-state-message': printerStateMessage,
+    } = response['printer-attributes-tag'] || {};
+    this.ctx.set('printer-state', printerState);
+    this.ctx.set('printer-state-message', printerStateMessage);
+    this.ctx.status = 200;
     this.ctx.body = response;
   }
 }

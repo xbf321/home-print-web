@@ -42,23 +42,20 @@ class IPPService extends Service {
     return isSuccess;
   }
 
-  async checkPrinter() {
-    let response = null;
-    try {
-      response = await this.wrapExecuteToPromise('Identify-Printer');
-    } catch (err) {
-      response = err;
-      this.ctx.logger.error(err);
-    }
-    return response;
-  }
-
   async getPrinterInfo() {
     let response = null;
     try {
-      response = await this.wrapExecuteToPromise('Get-Printer-Attributes');
+      const msg = {
+        'operation-attributes-tag': {
+          'requested-attributes': [
+            'printer-state',
+            'printer-state-message',
+          ],
+        },
+      };
+      response = await this.wrapExecuteToPromise('Get-Printer-Attributes', msg);
     } catch (err) {
-      response = err;
+      response = null;
       this.ctx.logger.error(err);
     }
     return response;
