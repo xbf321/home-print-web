@@ -16,3 +16,4 @@ typings/
 uploads/
 .github
 config/db.*
+.nuxt
