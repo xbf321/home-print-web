@@ -10,4 +10,5 @@ useSeoMeta({
   description: 'Web Print Service Platform',
   ogDescription: 'Web Print Service Platform',
 });
+import 'vue-toast-notification/dist/theme-sugar.css';
 </script>

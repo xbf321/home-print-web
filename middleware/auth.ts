@@ -1,6 +1,11 @@
-module.exports = () => {
-  return async function auth(ctx, next) {
-    const { request } = ctx;
+export default defineNuxtRouteMiddleware((to, from) => {
+  // // isAuthenticated() is an example method verifying if a user is authenticated
+  // if (isAuthenticated() === false) {
+  //   return navigateTo('/login')
+  // }
+  /**
+   * 
+   * const { request } = ctx;
     const { userName, userPassword } = ctx.app.config.auth;
     const authHeader = request.header.authorization;
     if (!authHeader) {
@@ -16,5 +21,5 @@ module.exports = () => {
         await next();
       }
     }
-  };
-};
+   */
+})

@@ -76,7 +76,7 @@ docker-compose up -d
 
 平台基于 [Eggjs](https://www.eggjs.org/zh-CN/intro)，因为过于简单，没有用 Vue/React MVVM 框架和复杂的UI库。
 
-* 文件上传基于 [uppy](https://uppy.io/docs/quick-start/)
+* 文件上传基于 [simple-uploader](https://github.com/simple-uploader/Uploader/blob/develop/samples/Node.js/app.js)
 * CSS 基于[milligram](https://milligram.io/)
 * JSON 存储基于[node-json-db](https://github.com/Belphemur/node-json-db)
 * IPP 协议基于[ipp](https://github.com/williamkapke/ipp)
