@@ -1,6 +1,5 @@
 // @ts-nocheck
 // https://reffect.co.jp/en/nuxt/nuxt3-file-upload/
-import fs from 'fs-extra';
 import path from 'node:path';
 import FilesService from '../service/files';
 import CloudConvertService from '../service/cloudconvert';
@@ -9,9 +8,6 @@ import formidable from 'formidable';
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const { uploadDir, needToConvertExts } = config.private;
-
-  // 判断 uploadDir 是否存在，不存在直接创建
-  fs.ensureDirSync(uploadDir);
 
   const form = formidable({ 
     uploadDir,
