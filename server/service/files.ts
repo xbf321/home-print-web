@@ -54,7 +54,7 @@ class FilesService {
     
     try {
       // 删除物理文件
-      await fs.remove(item.fullPath);
+      await fs.remove(item.filepath);
     } catch {
       // Do noting
     }

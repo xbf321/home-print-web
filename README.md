@@ -74,10 +74,9 @@ docker-compose up -d
 
 ## 开发
 
-平台基于 [Eggjs](https://www.eggjs.org/zh-CN/intro)，因为过于简单，没有用 Vue/React MVVM 框架和复杂的UI库。
+平台基于 [Nuxt](https://nuxt.com/)。
 
-* 文件上传基于 [simple-uploader](https://github.com/simple-uploader/Uploader/blob/develop/samples/Node.js/app.js)
-* CSS 基于[milligram](https://milligram.io/)
+* CSS 基于[tailwindcss](https://tailwindcss.com/)
 * JSON 存储基于[node-json-db](https://github.com/Belphemur/node-json-db)
 * IPP 协议基于[ipp](https://github.com/williamkapke/ipp)
 * 因为 CUPS 不支持 word/excel 打印，针对这些文件使用[CloudConver](https://cloudconvert.com/)转换
@@ -100,7 +99,7 @@ docker build -t xbf321/home-print-web .
 # 后台运行
 docker run -d -p 7020:7020 --name home-print-web xbf321/home-print-web
 # 临时运行
-docker run -it --name home-print-web xbf321/home-print-web
+docker run -it --name home-print-web xbf321/home-print-web /bin/bash
 # 进入容器内部
 docker exec -it home-print-web /bin/bash
 ```

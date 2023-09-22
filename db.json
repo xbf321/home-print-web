@@ -1,20 +1,3 @@
 {
-    "files": [
-        {
-            "status": "waiting",
-            "date": 1695305944508,
-            "uid": 1695305944446,
-            "filename": "2.pdf",
-            "filepath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/6e3485e41ae359e6eec1c9e00.pdf",
-            "mimetype": "application/pdf"
-        },
-        {
-            "status": "waiting",
-            "date": 1695306205590,
-            "uid": 1695306205558,
-            "filename": "nuxt.drawio2.pdf",
-            "filepath": "/Users/xingbaifang/project/github-xbf321/home-print-web/uploads/8a9f4f94ef4adbeca1f00e900.drawio2.pdf",
-            "mimetype": "application/pdf"
-        }
-    ]
+    "files": []
 }

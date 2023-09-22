@@ -1,37 +1,40 @@
 <template>
-  <div class="absolute bottom-0 h-10 bg-green-100 w-full leading-10 px-2">
-    <span class="text-sm">打印机状态：</span>
+  <div class="absolute bottom-0 h-10 bg-green-100 w-full leading-10 px-2 text-sm">
+    <span class="font-medium text-base">打印机状态：</span>
+    <span
+      class="p-1 bg-green-500 rounded text-white text-xs"
+      :class="{ 'bg-red-500': printerAvailable === false }"
+    >
+      {{ printerAvailable ? '可用' : '不可用'
+      }}{{ printerInfo.state ? `（${printerInfo.state}）` : '' }}
+    </span>
+    <span class="text-xs ml-2">
+      {{ printerInfo.message }}
+    </span>
   </div>
 </template>
 <script setup>
-const printerStatusInterval = ref(null);
-const {} = await useFetch();
-const getPrinterInfo = async () => {
-  const info = await useFetch('/api/get-printer-info', {
-    method: 'HEAD',
-    server: false,
-  });
-  console.info('dainfta', info);
-};
-onMounted(async () => {
-  // printerStatusInterval.value = window.setInterval(getPrinterInfo, 3000);
-  await getPrinterInfo();
+const printerAvailable = usePrinterAvailable();
+const printerInfo = reactive({
+  state: '',
+  message: '',
 });
-// function getPrinterInfo() {
-//         fetch('/api/getPrinterInfo', { method: 'HEAD', signal: AbortSignal.timeout(1500) }).then((response) => {
-//           const printerState = response.headers.get('printer-state');
-//           const printerStateMessage = response.headers.get('printer-state-message');
-//           if (printerState === 'idle') {
-//             printerStatusNode.innerHTML = '打印机可用。';
-//             printerStatusNode.classList.add("success");
-//             window.clearInterval(printerStatusInterval);
-//             return;
-//           }
-//           printerStatusNode.innerHTML = `${printerState}, ${printerStateMessage}`;
-//         }).catch((err) => {
-//           console.error(err);
-//         });
-//       }
-//       printerStatusInterval = window.setInterval(getPrinterInfo, 3000);
-//       
+await useFetch('/api/get-printer-info', {
+  method: 'HEAD',
+  server: false,
+  retry: 5,
+  // ms
+  retryDelay: 1000,
+  onResponse: ({ response }) => {
+    // idle
+    printerInfo.state = response.headers.get('printer-state');
+    printerInfo.message = response.headers.get('printer-state-message');
+  },
+});
+
+onMounted(() => {
+  setTimeout(() => {
+    printerAvailable.value = true;
+  }, 10000);
+});
 </script>

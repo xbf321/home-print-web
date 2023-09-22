@@ -1,10 +1,13 @@
 <template>
   <div class="flex flex-col h-full over-flow-hidden">
-    <Uploader @change="onChange"/>
-    <FileList v-if="fileList.length > 0" :data="fileList" @deleted="onDeleted" @printed="onPrinted" />
-    <div v-else class="text-center p-2 text-gray-400">
-      暂无要打印的文件，请点击右上角「上传按钮」进行上传。
-    </div>
+    <Uploader @change="onChange" />
+    <FileList
+      v-if="fileList.length > 0"
+      :data="fileList"
+      @deleted="onDeleted"
+      @printed="onPrinted"
+    />
+    <div v-else class="text-center p-2 text-gray-400">暂无文件，请点击「上传按钮」进行上传。</div>
   </div>
 </template>
 <script setup>

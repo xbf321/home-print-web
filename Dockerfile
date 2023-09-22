@@ -6,10 +6,11 @@ WORKDIR /root/app
 
 COPY package*.json ./
 
-RUN npm install
+RUN npm install pm2 -g --registry=https://registry.npmmirror.com
+RUN npm install --registry=https://registry.npmmirror.com
 
 COPY . .
 
 EXPOSE 7020
 
-CMD npm run start
+CMD [ "pm2-runtime", "start", "npm", "--", "start" ]

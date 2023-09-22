@@ -10,31 +10,37 @@
       </h1>
       <div class="mr-4 leading-9 min-[320px]:mr-0 md:mr-4">
         <span class="p-1 bg-green-500 text-white text-xs" :class="item.status">
-          {{item.status}}
+          {{ item.status }}
           {{ statusChineseMap[item.status] }}
         </span>
       </div>
-      <div class="flex w-40 min-[320px]:w-full md:w-40">
+      <div class="flex w-32 min-[320px]:w-full md:w-32">
         <button
-          class="rounded shadow-lg py-1 bg-blue-500 text-white hover:bg-blue-700 flex-1"
+          class="flex-1 text-sm hover:text-blue-800 rounded border border-gray-400"
           @click="onPrint(index, item.uid)"
           :class="{
-            'cursor-not-allowed': printButtonStatus(item.status),
-            'opacity-40': printButtonStatus(item.status),
-            'hover:bg-blue-500': printButtonStatus(item.status),
+            'cursor-not-allowed': printButtonStatus(index, item.status),
+            'opacity-40': printButtonStatus(index, item.status),
           }"
-          :disabled="printButtonStatus(item.status)"
+          :disabled="printButtonStatus(index, item.status)"
         >
-          {{ isPrinting ? '正在打印中' : '打印'}}
+          {{ selectedPrintingItemIndex === index ? '正在打印中' : '打印' }}
         </button>
-        <button class="ml-2 text-sm" @click="onDelete(index, item.uid)">删除</button>
+        <button
+          class="ml-2 text-sm text-blue-700 hover:text-blue-500"
+          @click="onDelete(index, item)"
+        >
+          删除
+        </button>
       </div>
     </div>
   </div>
 </template>
 <script setup>
+const printerAvailable = usePrinterAvailable();
 import { useToast } from 'vue-toast-notification';
-const isPrinting = ref(false);
+const selectedPrintingItemIndex = ref(-1);
+
 const $toast = useToast();
 
 const props = defineProps({
@@ -44,15 +50,18 @@ const props = defineProps({
 const emit = defineEmits(['deleted', 'printed']);
 
 const printButtonStatus = computed(() => {
-  return (status) => {
-    if (isPrinting.value) {
+  return (index, status) => {
+    if (printerAvailable.value === false) {
+      return true;
+    }
+    if (index === selectedPrintingItemIndex.value) {
       return true;
     }
     if (status === 'waiting' || status === 'printed') {
       return false;
     }
     return true;
-  }
+  };
 });
 
 const statusChineseMap = {
@@ -62,9 +71,16 @@ const statusChineseMap = {
   printed: '已打印',
 };
 
-const onDelete = async (index, uid) => {
+const onDelete = async (index, item) => {
   if (window.confirm('Are you sure?')) {
-    const { data: result} = await useFetch('/api/remove', {
+    const { uid, status } = item;
+    if (status === 'error') {
+      // 说明上传失败，没有上传到 DB
+      // 直接在前台删除。
+      emit('deleted', index);
+      return;
+    }
+    const { data: result } = await useFetch('/api/remove', {
       method: 'DELETE',
       body: {
         uid,
@@ -73,27 +89,30 @@ const onDelete = async (index, uid) => {
     if (result.value) {
       emit('deleted', index);
     }
-    
-    $toast[result.value ? 'success' : 'error'](result.value ? '删除成功!' : '删除失败，请刷新页面重试。', {
-      position: 'top',
-    });
+
+    $toast[result.value ? 'success' : 'error'](
+      result.value ? '删除成功!' : '删除失败，请刷新页面重试。',
+      {
+        position: 'top',
+      },
+    );
   }
 };
 
 const onPrint = async (index, uid) => {
   if (window.confirm('Are you sure?')) {
-    isPrinting.value = true;
+    selectedPrintingItemIndex.value = index;
     const { data: result } = await useFetch('/api/print', {
       method: 'POST',
       body: {
         uid,
       },
     });
-    isPrinting.value = false;
+    selectedPrintingItemIndex.value = -1;
     if (result.value) {
       emit('printed', index);
     }
-    $toast[result.value ? 'success' : 'error'](result.value ? '打印成功！' : '打印失败!', {
+    $toast[result.value ? 'success' : 'error'](result.value ? '打印成功！' : '打印失败，请重试!', {
       position: 'top',
     });
   }

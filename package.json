@@ -1,6 +1,6 @@
 {
   "name": "home-print-web",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "home-print-web",
   "private": true,
   "dependencies": {
@@ -22,7 +22,7 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "start": "egg-scripts start --title=egg-server-home-print-web",
-    "stop": "egg-scripts stop --title=egg-server-home-print-web"
+    "start": "pm2 start",
+    "stop": "pm2 stop home-print-web"
   }
 }

@@ -13,7 +13,8 @@ run/
 *.un~
 typings/
 .nyc_output/
-uploads/
+uploads/*.*
 .github
 config/db.*
 .nuxt
+.output

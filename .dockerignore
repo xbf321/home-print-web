@@ -5,4 +5,11 @@ node_modules
 logs
 run
 typings
-uploads
+README.md
+tsconfig.json
+jsconfig.json
+package-lock.json
+.prettierrc.json
+.nuxt
+.gitignore
+.git

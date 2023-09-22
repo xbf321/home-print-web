@@ -1,13 +1,13 @@
 version: '3.9'
 
 volumes:
-  config-dir:
-    name: config-dir
+  app-dir:
+    name: app-dir
     driver: local
     driver_opts:
       o: bind
       type: none
-      device: ${PWD}/config
+      device: ${PWD}
 
 services:
   home-print-web:
@@ -17,4 +17,4 @@ services:
     ports:
       - 7020:7020
     volumes:
-      - config-dir:/root/app/config
+      - app-dir:/root/app

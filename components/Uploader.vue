@@ -1,7 +1,7 @@
 <template>
-  <div class="flex justify-end">
+  <div class="flex justify-end mb-2">
     <button
-      class="px-4 py-2 bg-red-500 rounded shadow-lg w-40 text-white hover:bg-red-700 sm:block min-[320px]:w-full md:w-40"
+      class="py-2 rounded text-white bg-blue-700 hover:bg-blue-800 sm:block min-[320px]:w-full md:w-32 text-sm"
       @click="onSelectFile"
     >
       上传文件
@@ -18,11 +18,11 @@
 </template>
 <script setup>
 // https://stackoverflow.com/questions/35711724/upload-progress-indicators-for-fetch
-const accept = "image/*,.pdf,.doc,.docx,.xls,.xlsx";
+const accept = 'image/*,.pdf,.doc,.docx,.xls,.xlsx';
 const inputFileRef = ref();
 const req = ref();
 
-const emit = defineEmits(['change'])
+const emit = defineEmits(['change']);
 
 const onSelectFile = () => {
   if (!inputFileRef.value) {
@@ -39,9 +39,9 @@ const onFileChange = () => {
   }
   const [file] = files;
   post(file);
-}
+};
 const post = async (rawFile) => {
-  // status: 'waiting' | 'uploading' | 'error' 
+  // status: 'waiting' | 'uploading' | 'error'
   const wrapedFile = {
     uid: Date.now(),
     filename: rawFile.name,
@@ -70,7 +70,7 @@ const post = async (rawFile) => {
       wrapedFile.response = err;
       emit('change', wrapedFile);
     },
-  }
+  };
   await upload(option);
 };
 
@@ -81,7 +81,7 @@ const getError = (option, xhr) => {
   err.method = option.method;
   err.url = option.action;
   return err;
-}
+};
 
 const getBody = (xhr) => {
   const text = xhr.responseText || xhr.response;
@@ -94,7 +94,7 @@ const getBody = (xhr) => {
   } catch (e) {
     return text;
   }
-}
+};
 
 const upload = (option) => {
   const xhr = new XMLHttpRequest();
@@ -153,7 +153,7 @@ const upload = (option) => {
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
   }
 
-  Object.keys(headers).forEach(h => {
+  Object.keys(headers).forEach((h) => {
     if (headers[h] !== null) {
       xhr.setRequestHeader(h, headers[h]);
     }
@@ -168,4 +168,3 @@ const upload = (option) => {
   };
 };
 </script>
-
