@@ -1,14 +1,4 @@
 version: '3.9'
-
-volumes:
-  app-dir:
-    name: app-dir
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ${PWD}
-
 services:
   home-print-web:
     image: xbf321/home-print-web
@@ -16,5 +6,3 @@ services:
     restart: always
     ports:
       - 7020:7020
-    volumes:
-      - app-dir:/root/app
