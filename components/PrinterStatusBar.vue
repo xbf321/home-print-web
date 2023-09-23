@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute bottom-0 h-10 bg-green-100 w-full leading-10 px-2 text-sm">
+  <div class="fixed bottom-0 h-10 bg-green-100 w-full leading-10 px-2 text-sm">
     <span class="font-medium text-base">打印机状态：</span>
     <span
       class="p-1 bg-green-500 rounded text-white text-xs"
@@ -32,9 +32,10 @@ await useFetch('/api/get-printer-info', {
   },
 });
 
-onMounted(() => {
-  setTimeout(() => {
+watch(printerInfo, () => {
+  const { state } = printerInfo;
+  if (state === 'idle') {
     printerAvailable.value = true;
-  }, 10000);
+  }
 });
 </script>

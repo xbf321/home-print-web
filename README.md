@@ -12,58 +12,42 @@
 
 ### Docker 运行
 
-在项目目录下，新建 **docker-compose.yaml** 文件，内容如下：
+1. 在目录下，新建 **docker-compose.yaml** 文件，内容如下：
 
 ```shell
 version: '3.9'
-
-volumes:
-  config-dir:
-    name: config-dir
-    driver: local
-    driver_opts:
-      o: bind
-      type: none
-      device: ${PWD}/config
-
 services:
   home-print-web:
     image: xbf321/home-print-web
     container_name: home-print-web
-    restart: always
+    restart: unless-stopped
     ports:
       - 7020:7020
     volumes:
-      - config-dir:/root/app/config
+      - ./home-print-web/.env:/root/app/.env
 ```
 
-安装
+2. 和 **docker-compose.yaml** 文件同目录，新建 **home-print-web** 目录
+3. 在 home-print-web 中，新建 **.env** 配置，内容如下：
+
+```shell
+PRINTER=http://192.168.100.1:631/printers/HP1106
+AUTH_USER_NAME=test
+AUTH_USER_PASSWORD=test
+CLOUDCONVERT_ACCESS_TOKEN=
+```
+说明：
+**AUTH_USER_NAME**: 登录用户名
+**AUTH_USER_PASSWORD**：登录密码
+**CLOUDCONVERT_ACCESS_TOKEN**：CloudConvert 访问 token ，用于把 word 格式转换为 pdf 格式
+
+4. 安装
 
 ```shell
 docker-compose up -d
 ```
 
-### 配置打印机和登陆用户
-
-修改 **config.prod.js**  注释内容：
-
-```js
-module.exports = () => {
-  const userConfig = {
-    // web 登陆用户
-    auth: {
-      userName: 'root',
-      userPassword: 'root',
-    },
-  };
-
-  return {
-    ...userConfig,
-  };
-};
-```
-
-重新执行：
+重新安装，执行：
 
 ```shell
 # 停止容器

@@ -1,15 +1,11 @@
-logs/
 npm-debug.log
 yarn-error.log
 node_modules
-logs
-run
-typings
-README.md
 tsconfig.json
 jsconfig.json
 package-lock.json
 .prettierrc.json
-.nuxt
 .gitignore
 .git
+.github
+yarn.lock

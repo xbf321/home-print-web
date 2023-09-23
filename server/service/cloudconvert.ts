@@ -1,5 +1,5 @@
 // @ts-nocheck
-import fs from 'node:fs';
+import fs from 'fs-extra';
 import https from 'node:https';
 import CloudConvert from 'cloudconvert';
 
@@ -56,7 +56,10 @@ class CloudConvertService {
       response.pipe(writeStream);
     });
     await new Promise((resolve, reject) => {
-      writeStream.on('finish', resolve);
+      writeStream.on('finish', async () => {
+        await fs.remove(originFilePath);
+        resolve();
+      });
       writeStream.on('error', reject);
     });
     return tempFilePath;
