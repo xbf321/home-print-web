@@ -13,10 +13,20 @@ export default defineEventHandler(async (event) => {
     uploadDir,
     keepExtensions: true,
   });
-  const [fields, files] = await form.parse(event.node.req);
-  // [ '1695301172564' ]
-  const [uid] = fields.uid;
-  const [file] = files.file;
+  let uid = '';
+  let file = null;
+  let result = false;
+
+  try {
+    const [fields, files] = await form.parse(event.node.req);
+    // [ '1695301172564' ]
+    uid = fields.uid[0];
+    file = files.file[0];
+  } catch(err) {
+    sendMessageToPusher('上传文件失败。', err);
+    return result;
+  }
+  
   const { originalFilename } = file;
   let { filepath, mimetype } = file;
 
@@ -27,9 +37,10 @@ export default defineEventHandler(async (event) => {
     try {
       filepath = await CloudConvertService.convert(filepath);
       mimetype = 'application/pdf';
-    } catch {
+    } catch(err) {
       // 出错了，使用原来的路径，避免上层在移除临时文件时出错
       filepath = file.filepath;
+      sendMessageToPusher('调用CloudConvertService失败。', err);
     }
   }
 
@@ -39,5 +50,11 @@ export default defineEventHandler(async (event) => {
     filepath,
     mimetype,
   };
-  return await FilesService.add(item);
+  
+  try {
+    result = await FilesService.add(item);
+  } catch(err) {
+    sendMessageToPusher('添加文件到 DB 失败。', err);
+  }
+  return result;
 });

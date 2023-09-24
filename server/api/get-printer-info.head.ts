@@ -13,7 +13,9 @@ export default defineEventHandler(async (event) => {
     'printer-state': printerState,
     'printer-state-message': printerStateMessage,
   } = response['printer-attributes-tag'] || {};
-
+  if (printerState && printerState !== 'idle') {
+    sendMessageToPusher(`打印机状态：${printerState}`, printerStateMessage);
+  }
   event.node.res.setHeader('printer-state', printerState || '');
   event.node.res.setHeader('printer-state-message', printerStateMessage || '');
   event.node.res.statusCode = statusCode;

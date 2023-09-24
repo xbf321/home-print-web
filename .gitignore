@@ -14,6 +14,14 @@ run/
 typings/
 .nyc_output/
 uploads/*.pdf
+uploads/*.png
+uploads/*.gif
+uploads/*.jpeg
+uploads/*.jpg
+uploads/*.doc
+uploads/*.docx
+uploads/*.xls
+uploads/*.xlsx
 .github
 config/db.*
 .nuxt

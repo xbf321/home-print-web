@@ -34,11 +34,14 @@ services:
 PRINTER=http://192.168.100.1:631/printers/HP1106
 AUTH_USER_NAME=test
 AUTH_USER_PASSWORD=test
+MESSAGE_PUSHER_SERVER=http://192.168.100.1:7030/push/root
 CLOUDCONVERT_ACCESS_TOKEN=
 ```
+
 说明：
 **AUTH_USER_NAME**: 登录用户名
 **AUTH_USER_PASSWORD**：登录密码
+**MESSAGE_PUSHER_SERVER**：错误日志发送到PushServer中
 **CLOUDCONVERT_ACCESS_TOKEN**：CloudConvert 访问 token ，用于把 word 格式转换为 pdf 格式
 
 4. 安装

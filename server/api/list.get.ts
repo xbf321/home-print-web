@@ -1,4 +1,4 @@
 import FilesService from '../service/files';
-export default defineEventHandler((event) => {
+export default defineEventHandler(() => {
   return FilesService.list();
 });

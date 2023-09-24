@@ -61,6 +61,10 @@ const post = async (rawFile) => {
       emit('change', wrapedFile);
     },
     onSuccess: (res) => {
+      if (res === false) {
+        option.onError(new Error(res));
+        return;
+      }
       wrapedFile.status = 'waiting';
       wrapedFile.response = res;
       emit('change', wrapedFile);
