@@ -77,7 +77,7 @@ open http://localhost:7020/
 构建 Docker 镜像
 
 ```shell
-docker build -t xbf321/home-print-web .
+docker build --no-cache -t xbf321/home-print-web .
 ```
 
 创建容器：

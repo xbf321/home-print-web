@@ -56,14 +56,10 @@ class CloudConvertService {
       response.pipe(writeStream);
     });
     await new Promise((resolve, reject) => {
-      writeStream.on('finish', async () => {
-        await fs.remove(originFilePath);
-        resolve();
-      });
-      writeStream.on('error', (err) => {
-        reject(err);
-      });
+      writeStream.on('finish', resolve);
+      writeStream.on('error', reject);
     });
+    await fs.remove(originFilePath);
     return tempFilePath;
   }
 }

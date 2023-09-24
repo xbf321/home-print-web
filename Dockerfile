@@ -8,7 +8,6 @@ COPY . /root/app/
 
 RUN npm install pm2 -g --registry=https://registry.npmmirror.com
 RUN npm install --registry=https://registry.npmmirror.com
-#RUN npm version
 RUN npm run build
 
 EXPOSE 7020
