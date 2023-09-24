@@ -23,19 +23,12 @@ services:
     restart: unless-stopped
     ports:
       - 7020:7020
-    volumes:
-      - ./home-print-web/.env:/root/app/.env
-```
-
-2. 和 **docker-compose.yaml** 文件同目录，新建 **home-print-web** 目录
-3. 在 home-print-web 中，新建 **.env** 配置，内容如下：
-
-```shell
-PRINTER=http://192.168.100.1:631/printers/HP1106
-AUTH_USER_NAME=test
-AUTH_USER_PASSWORD=test
-MESSAGE_PUSHER_SERVER=http://192.168.100.1:7030/push/root
-CLOUDCONVERT_ACCESS_TOKEN=
+    environment:
+      - PRINTER=http://192.168.100.1:631/printers/HP1106
+      - AUTH_USER_NAME=test
+      - AUTH_USER_PASSWORD=test
+      - MESSAGE_PUSHER_SERVER=http://192.168.100.1:7030/push/root
+      - CLOUDCONVERT_ACCESS_TOKEN=token
 ```
 
 说明：
@@ -44,7 +37,7 @@ CLOUDCONVERT_ACCESS_TOKEN=
 **MESSAGE_PUSHER_SERVER**：错误日志发送到PushServer中
 **CLOUDCONVERT_ACCESS_TOKEN**：CloudConvert 访问 token ，用于把 word 格式转换为 pdf 格式
 
-4. 安装
+2. 安装
 
 ```shell
 docker-compose up -d

@@ -3,6 +3,7 @@ yarn-error.log
 node_modules
 tsconfig.json
 jsconfig.json
+logs
 package-lock.json
 .prettierrc.json
 .gitignore
