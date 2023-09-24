@@ -73,7 +73,7 @@ class FilesService {
     const index = await this.db.getIndex('/files', uid, 'uid');
     if (index < 0) {
       isPrintSuccess = false;
-      return isPrintSuccess;
+      return { isPrintSuccess, item: null };
     }
     const path = `/files[${index}]`;
     const item = await this.db.getData(path);
@@ -91,9 +91,9 @@ class FilesService {
         );
       }
     } catch (err) {
-      throw err;
+      throw new Error(err);
     }
-    return isPrintSuccess;
+    return { isPrintSuccess, item };
   }
 }
 

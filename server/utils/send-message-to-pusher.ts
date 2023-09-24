@@ -2,6 +2,10 @@
 const sendMessageToPusher = async (description, content) => {
   const config = useRuntimeConfig();
   const { messagePusherServer } = config.private;
+  if (!messagePusherServer) {
+    console.error(description, content);
+    return;
+  }
   if (typeof content !== 'string') {
     content = `
       ## message
