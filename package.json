@@ -11,7 +11,8 @@
     "ipp": "^2.0.1",
     "node-json-db": "^2.2.0",
     "nuxt": "^3.7.0",
-    "vue-toast-notification": "^3.1.1"
+    "vue-toast-notification": "^3.1.1",
+    "winston": "^3.10.0"
   },
   "devDependencies": {
     "@nuxtjs/tailwindcss": "^6.8.0"

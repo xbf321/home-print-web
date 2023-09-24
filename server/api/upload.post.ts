@@ -22,7 +22,9 @@ export default defineEventHandler(async (event) => {
     // [ '1695301172564' ]
     uid = fields.uid[0];
     file = files.file[0];
+    useLogInfo(`开始上传文件 uid: ${uid}`);
   } catch(err) {
+    useLogError(err);
     sendMessageToPusher('上传文件失败。', err);
     return result;
   }
@@ -33,14 +35,9 @@ export default defineEventHandler(async (event) => {
   const extname = path.extname(originalFilename);
   // 非需要转换，直接返回
   if (needToConvertExts.includes(extname)) {
-    try {
-      filepath = await CloudConvertService.convert(filepath);
-      mimetype = 'application/pdf';
-    } catch(err) {
-      // 出错了，使用原来的路径，避免上层在移除临时文件时出错
-      filepath = file.filepath;
-      sendMessageToPusher('调用CloudConvertService失败。', err);
-    }
+    const { filepath: convertFilePath, mimetype: convertMimeType} = await CloudConvertService.convert(filepath, mimetype);
+    filepath = convertFilePath;
+    mimetype = convertMimeType;
   }
 
   const item = {

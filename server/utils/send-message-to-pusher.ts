@@ -8,7 +8,6 @@ const sendMessageToPusher = async (description, content) => {
     return;
   }
   if (isDev) {
-    console.error(description, content);
     return;
   }
   if (typeof content !== 'string') {
