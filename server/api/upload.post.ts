@@ -29,7 +29,6 @@ export default defineEventHandler(async (event) => {
   
   const { originalFilename } = file;
   let { filepath, mimetype } = file;
-
   // 是否需要转换
   const extname = path.extname(originalFilename);
   // 非需要转换，直接返回

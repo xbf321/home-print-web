@@ -2,7 +2,12 @@
 const sendMessageToPusher = async (description, content) => {
   const config = useRuntimeConfig();
   const { messagePusherServer } = config.private;
+  const isDev = process.env.NODE_ENV === 'development'
   if (!messagePusherServer) {
+    console.error(description, content);
+    return;
+  }
+  if (isDev) {
     console.error(description, content);
     return;
   }

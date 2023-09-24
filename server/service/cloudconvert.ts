@@ -55,12 +55,13 @@ class CloudConvertService {
     https.get(url, response => {
       response.pipe(writeStream);
     });
-    await new Promise(() => {
+    await new Promise((resolve, reject) => {
       writeStream.on('finish', async () => {
         await fs.remove(originFilePath);
+        resolve();
       });
       writeStream.on('error', (err) => {
-        throw new Error(err);
+        reject(err);
       });
     });
     return tempFilePath;
