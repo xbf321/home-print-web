@@ -46,7 +46,6 @@ class CloudConvertService {
       await cloudConvert.tasks.upload(uploadTask, inputFile);
       job = await cloudConvert.jobs.wait(job.id);
       if (job.status === 'error') {
-        console.info('sdsfssdfsdf');
         throw new Error(JSON.stringify(job));
       }
       const file = await cloudConvert.jobs.getExportUrls(job)[0];
@@ -64,12 +63,13 @@ class CloudConvertService {
       });
       await fs.remove(originFilePath);
       originMimetype = 'application/pdf';
-      useLogInfo('调用CloudConvertService 成功。', tempFilePath);
+      useLogInfo('调用「CloudConvertService」成功。', tempFilePath);
+      sendMessageToPusher('调用「CloudConvertService」成功。', tempFilePath);
     } catch(err) {
       // 出错了，使用原来的路径，避免上层在移除临时文件时出错
       tempFilePath = originFilePath;
-      useLogError('调用CloudConvertService失败。', err?.message);
-      sendMessageToPusher('调用CloudConvertService失败。', err?.message);
+      useLogError('调用「CloudConvertService」失败。', err?.message);
+      sendMessageToPusher('调用「CloudConvertService」失败。', err?.message);
     }
     
     return {

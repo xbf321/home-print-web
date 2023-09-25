@@ -25,7 +25,7 @@ export default defineEventHandler(async (event) => {
     file = files.file[0];
     useLogInfo(`开始上传文件 uid: ${uid}`);
   } catch(err) {
-    useLogError(err);
+    useLogError(err?.message);
     sendMessageToPusher('上传文件失败。', err);
     return result;
   }

@@ -2,13 +2,10 @@
 const sendMessageToPusher = async (description, content) => {
   const { messagePusherServer } = useServerRuntimeConfig();
   const isDev = process.env.NODE_ENV === 'development'
-  if (!messagePusherServer) {
-    console.error(description, content);
+  if (!messagePusherServer || isDev) {
     return;
   }
-  if (isDev) {
-    return;
-  }
+
   if (typeof content !== 'string') {
     content = `
       ## message
@@ -32,7 +29,7 @@ const sendMessageToPusher = async (description, content) => {
       }
     });
   } catch(err) {
-    console.error(err);
+    useLogError('调用 messagePusherServer 失败。', err?.message);
   }
 };
 export default sendMessageToPusher;
