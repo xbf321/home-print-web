@@ -2,17 +2,26 @@
 
 使用 IPP 协议，无需打印机驱动，通过 Web 页面调用家里打印机打印文件。如下图：
 
-![image](https://p0.meituan.net/travelcube/14c6f8c826c93316a4a85f01b467e6f8111491.png)
+![image](https://p1.meituan.net/travelcube/c2ee459d863c42b77242ff22cc349c9a910526.gif)
 
 目前自己使用 Docker 部署到 openwrt 路由器里。
 
 > 如果IPP打印机可以通过外网访问，可以不用和打印机同一个网络。
 
-## Docker 部署方式
+平台基于 [Nuxt](https://nuxt.com/)。
 
-### Docker 运行
+* CSS 基于[tailwindcss](https://tailwindcss.com/)
+* JSON 存储基于[node-json-db](https://github.com/Belphemur/node-json-db)
+* IPP 协议基于 [IPP](https://github.com/williamkapke/ipp) 包
+* 因为 CUPS 不支持 word/excel 打印，针对这些文件使用[CloudConver](https://cloudconvert.com/)转换
+* 程序发送消息到设备，基于[message-pusher](https://github.com/songquanpeng/message-pusher)，部署在内网。
+* 默认 Nitro 不包含日志输出到文件，因此使用 [winston](https://github.com/winstonjs/winston) 包处理日志。
+* 文件上传时保存至物理文件夹，基于[formidable](https://www.npmjs.com/package/formidable)
+* Toast 提示使用[vue-toast-notification](https://www.npmjs.com/package/vue-toast-notification)
 
-1. 在目录下，新建 **docker-compose.yaml** 文件，内容如下：
+## docker-compose 部署方式
+
+新建 **docker-compose.yaml** 文件，内容如下：
 
 ```shell
 version: '3.9'
@@ -30,13 +39,13 @@ services:
       - AUTH_USER_NAME=test
       - AUTH_USER_PASSWORD=test
       # 默认：http://192.168.100.1:7030/push/root
-      # 错误日志发送到PushServer中
+      # 日志发送到PushServer中
       # - MESSAGE_PUSHER_SERVER=http://192.168.100.1:7030/push/root
       # CloudConvert 访问 token ，用于把 word 格式转换为 pdf 格式
       - CLOUDCONVERT_ACCESS_TOKEN=token
 ```
 
-1. 安装
+安装
 
 ```shell
 docker-compose up -d
@@ -47,18 +56,13 @@ docker-compose up -d
 ```shell
 # 停止容器
 docker-compose down
+# 获取最新 image
+docker-compose pull xbf321/home-print-web
 # 启动
 docker-compose up -d
 ```
 
 ## 开发
-
-平台基于 [Nuxt](https://nuxt.com/)。
-
-* CSS 基于[tailwindcss](https://tailwindcss.com/)
-* JSON 存储基于[node-json-db](https://github.com/Belphemur/node-json-db)
-* IPP 协议基于[ipp](https://github.com/williamkapke/ipp)
-* 因为 CUPS 不支持 word/excel 打印，针对这些文件使用[CloudConver](https://cloudconvert.com/)转换
 
 ```bash
 npm i
@@ -66,15 +70,16 @@ npm run dev
 open http://localhost:7020/
 ```
 
-构建 Docker 镜像
+Docker 镜像一些操作
 
 ```shell
+# 构建 image
 docker build --no-cache -t xbf321/home-print-web .
-```
 
-创建容器：
+# 发布到 hub.docker.io
+docker push xbf321/home-print-web:latest
 
-```shell
+# 创建容器
 # 后台运行
 docker run -d -p 7020:7020 -e CLOUDCONVERT_ACCESS_TOKEN=token -e AUTH_USER_NAME=aaa -e AUTH_USER_PASSWORD=aaa  --name home-print-web xbf321/home-print-web:latest
 # 临时运行
