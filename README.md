@@ -18,26 +18,25 @@
 version: '3.9'
 services:
   home-print-web:
-    image: xbf321/home-print-web
+    image: xbf321/home-print-web:latest
     container_name: home-print-web
     restart: unless-stopped
     ports:
       - 7020:7020
     environment:
-      - PRINTER=http://192.168.100.1:631/printers/HP1106
+      # 默认：http://192.168.100.1:631/printers/HP1106
+      # - PRINTER=http://192.168.100.1:631/printers/HP1106
+      # 登录用户名和密码默认都是 test
       - AUTH_USER_NAME=test
       - AUTH_USER_PASSWORD=test
-      - MESSAGE_PUSHER_SERVER=http://192.168.100.1:7030/push/root
+      # 默认：http://192.168.100.1:7030/push/root
+      # 错误日志发送到PushServer中
+      # - MESSAGE_PUSHER_SERVER=http://192.168.100.1:7030/push/root
+      # CloudConvert 访问 token ，用于把 word 格式转换为 pdf 格式
       - CLOUDCONVERT_ACCESS_TOKEN=token
 ```
 
-说明：
-**AUTH_USER_NAME**: 登录用户名
-**AUTH_USER_PASSWORD**：登录密码
-**MESSAGE_PUSHER_SERVER**：错误日志发送到PushServer中
-**CLOUDCONVERT_ACCESS_TOKEN**：CloudConvert 访问 token ，用于把 word 格式转换为 pdf 格式
-
-2. 安装
+1. 安装
 
 ```shell
 docker-compose up -d
@@ -77,7 +76,7 @@ docker build --no-cache -t xbf321/home-print-web .
 
 ```shell
 # 后台运行
-docker run -d -p 7020:7020 --name home-print-web xbf321/home-print-web
+docker run -d -p 7020:7020 -e CLOUDCONVERT_ACCESS_TOKEN=token -e AUTH_USER_NAME=aaa -e AUTH_USER_PASSWORD=aaa  --name home-print-web xbf321/home-print-web:latest
 # 临时运行
 docker run -it --name home-print-web xbf321/home-print-web /bin/bash
 # 进入容器内部

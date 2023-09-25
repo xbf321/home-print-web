@@ -1,7 +1,6 @@
 // @ts-nocheck
 const sendMessageToPusher = async (description, content) => {
-  const config = useRuntimeConfig();
-  const { messagePusherServer } = config.private;
+  const { messagePusherServer } = useServerRuntimeConfig();
   const isDev = process.env.NODE_ENV === 'development'
   if (!messagePusherServer) {
     console.error(description, content);

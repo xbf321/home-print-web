@@ -7,6 +7,7 @@ import formidable from 'formidable';
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
+  
   const { uploadDir, needToConvertExts } = config.private;
 
   const form = formidable({ 

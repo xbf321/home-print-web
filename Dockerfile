@@ -10,6 +10,10 @@ RUN npm install pm2 -g --registry=https://registry.npmmirror.com
 RUN npm install --registry=https://registry.npmmirror.com
 RUN npm run build
 
+
+ENV PORT=7020
+
 EXPOSE 7020
 
-CMD [ "pm2-runtime", "start", "npm", "--", "start" ]
+# CMD [ "pm2-runtime", "start", "npm", "--", "start" ]
+CMD [ "npm", "start" ]

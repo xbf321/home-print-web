@@ -23,7 +23,8 @@
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",
-    "start": "pm2 start",
+    "start": "node ./.output/server/index.mjs",
+    "pm2:start": "pm2 start ecosystem.config.js",
     "stop": "pm2 stop home-print-web"
   }
 }

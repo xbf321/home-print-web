@@ -6,7 +6,8 @@ import fs from 'fs-extra';
 class IPPService {
   async wrapExecuteToPromise(action, message = null) {
     const config = useRuntimeConfig();
-    const { printer: defaultPrinter, ippRequestTimout } = config.private;
+    const { ippRequestTimout } = config.private;
+    const { printer: defaultPrinter } = useServerRuntimeConfig();
     const printer = ipp.Printer(defaultPrinter);
     // https://stackoverflow.com/questions/32461271/nodejs-timeout-a-promise-if-failed-to-complete-in-time
     const withTimeout = (millis, promise) => {

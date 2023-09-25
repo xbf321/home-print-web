@@ -12,11 +12,10 @@ class CloudConvertService {
     let tempFilePath = `${originFilePath}.pdf`;
 
     // CloudConvert
-    const config = useRuntimeConfig();
-    const { cloudConvertAccessToken } = config.private;
-    useLogInfo(`cloudConvertAccessToken:${cloudConvertAccessToken}`);
+    const { cloudconvertAccesstoken } = useServerRuntimeConfig();
+    useLogInfo(`cloudConvertAccessToken:${cloudconvertAccesstoken}`);
     try {
-      const cloudConvert = new CloudConvert(cloudConvertAccessToken);
+      const cloudConvert = new CloudConvert(cloudconvertAccesstoken);
     
       let job = await cloudConvert.jobs.create({
         tasks: {

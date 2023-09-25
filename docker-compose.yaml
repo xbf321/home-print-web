@@ -1,10 +1,17 @@
 version: '3.9'
 services:
   home-print-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: xbf321/home-print-web
     container_name: home-print-web
     restart: unless-stopped
     ports:
       - 7020:7020
-    volumes:
-      - ./home-print-web/.env:/root/app/.env
+    environment:
+      - AUTH_USER_NAME=test
+      - AUTH_USER_PASSWORD=test
+      - PRINTER=http://192.168.100.1:631/printers/HP1106
+      - MESSAGE_PUSHER_SERVER=http://192.168.100.1:7030/push/root
+      - CLOUDCONVERT_ACCESS_TOKEN=token
