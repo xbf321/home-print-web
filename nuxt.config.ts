@@ -24,6 +24,8 @@ export default defineNuxtConfig({
       needToConvertExts: [ '.doc', '.docx', '.xls', '.xlsx', '.csv' ],
     },
     // for client or server
-    public: {},
+    public: {
+      uploadAcceptFormat: 'image/*,.pdf,.doc,.docx,.xls,.xlsx',
+    },
   },
 })

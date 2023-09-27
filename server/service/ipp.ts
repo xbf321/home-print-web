@@ -2,7 +2,6 @@
 import ipp from 'ipp';
 import fs from 'fs-extra';
 
-
 class IPPService {
   async wrapExecuteToPromise(action, message = null) {
     const config = useRuntimeConfig();

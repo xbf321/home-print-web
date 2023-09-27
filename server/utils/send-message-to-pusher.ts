@@ -16,7 +16,7 @@ const sendMessageToPusher = async (description, content) => {
         ${content?.statusMessage || ''}
       ## stack
         ${content?.stack}
-      ###------EOF
+      ## ------EOF
     `;
   }
   try {

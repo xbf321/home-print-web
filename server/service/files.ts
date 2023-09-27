@@ -1,8 +1,6 @@
 // @ts-nocheck
-// const path = require('path');
 import defu from 'defu';
 import fs from 'fs-extra';
-import dayjs from 'dayjs';
 import { JsonDB, Config } from 'node-json-db';
 import IPPService from './ipp';
 
@@ -32,8 +30,7 @@ class FilesService {
   async add(item) {
     const row = defu(item, {
       status: 'waiting',
-      // format('YYYY-MM-DD HH:mm:ss')
-      date: dayjs().valueOf(),
+      date: new Date().getTime(),
     });
     row.uid = parseFloat(row.uid, 10);
     try {

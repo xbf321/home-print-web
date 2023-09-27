@@ -1,6 +1,6 @@
 // @ts-nocheck
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.config.errorHandler = async (error, context) => {
+  nuxtApp.vueApp.config.errorHandler = async (error) => {
     await useFetch('/api/send-error', {
       method: 'POST',
       body: {

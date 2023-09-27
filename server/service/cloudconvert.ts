@@ -10,6 +10,7 @@ class CloudConvertService {
     // 简单点：新文件，直接在原来文件基础上直接增加 .pdf 扩展名
     // 如：/var/folders/xx/test.docx -> /var/folders/xx/test.docx.pdf
     let tempFilePath = `${originFilePath}.pdf`;
+    let errorMessage = '';
 
     // CloudConvert
     const { cloudconvertAccesstoken } = useServerRuntimeConfig();
@@ -63,13 +64,14 @@ class CloudConvertService {
       });
       await fs.remove(originFilePath);
       originMimetype = 'application/pdf';
-      useLogInfo('调用「CloudConvertService」成功。', tempFilePath);
-      sendMessageToPusher('调用「CloudConvertService」成功。', tempFilePath);
     } catch(err) {
       // 出错了，使用原来的路径，避免上层在移除临时文件时出错
       tempFilePath = originFilePath;
-      useLogError('调用「CloudConvertService」失败。', err?.message);
-      sendMessageToPusher('调用「CloudConvertService」失败。', err?.message);
+      errorMessage = err?.message;
+    } finally {
+      const isSuccess = tempFilePath !== originFilePath;
+      useLogInfo(`调用「CloudConvertService」${isSuccess ? '成功' : '失败'}。`, errorMessage);
+      sendMessageToPusher(`调用「CloudConvertService」${isSuccess ? '成功' : '失败'}。`, errorMessage);
     }
     
     return {

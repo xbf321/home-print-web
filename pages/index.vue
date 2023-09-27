@@ -2,16 +2,26 @@
   <div class="flex flex-col h-full over-flow-hidden">
     <Uploader @change="onChange" />
     <FileList
-      v-if="fileList.length > 0"
       :data="fileList"
       @deleted="onDeleted"
       @printed="onPrinted"
     />
-    <div v-else class="text-center p-2 text-gray-400">暂无文件，请点击「上传按钮」进行上传。</div>
   </div>
 </template>
 <script setup>
-const { data: fileList } = await useFetch('/api/list');
+const { data: fileList } = await useFetch('/api/list', {
+  transform: (list) => {
+    return list.map((item) => {
+      const { uid, filename, status } = item;
+      return {
+        uid,
+        filename,
+        status,
+      };
+    });
+  },
+});
+
 const onChange = (file) => {
   const { uid } = file;
   const isExists = fileList.value.find((item) => item.uid === uid);

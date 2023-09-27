@@ -1,39 +1,42 @@
 <template>
   <div class="flex-1 h-full overflow-y-auto">
-    <div
-      class="border-b py-3 flex min-[320px]:flex-col md:flex-row"
-      v-for="(item, index) in data"
-      :key="item.uid"
-    >
-      <h1 class="font-medium flex-1 leading-9 min-[320px]:leading-6 md:leading-9">
-        #{{item.uid}} - {{ item.filename }}
-      </h1>
-      <div class="mr-4 leading-9 min-[320px]:mr-0 md:mr-4">
-        <span class="p-1 bg-green-500 text-white text-xs" :class="item.status">
-          {{ item.status }}
-          {{ statusChineseMap[item.status] }}
-        </span>
+    <template v-if="data.length > 0">
+      <div
+        class="border-b py-3 flex min-[320px]:flex-col md:flex-row"
+        v-for="(item, index) in data"
+        :key="item.uid"
+      >
+        <h1 class="font-medium flex-1 leading-9 min-[320px]:leading-6 md:leading-9">
+          #{{ item.uid }} - {{ item.filename }}
+        </h1>
+        <div class="mr-4 leading-9 min-[320px]:mr-0 md:mr-4">
+          <span class="p-1 bg-green-500 text-white text-xs" :class="item.status">
+            {{ item.status }}
+            {{ statusChineseMap[item.status] }}
+          </span>
+        </div>
+        <div class="flex w-32 min-[320px]:w-full md:w-32">
+          <button
+            class="flex-1 text-sm hover:text-blue-800 rounded border border-gray-400"
+            @click="onPrint(index, item.uid)"
+            :class="{
+              'cursor-not-allowed': printButtonStatus(index, item.status),
+              'opacity-40': printButtonStatus(index, item.status),
+            }"
+            :disabled="printButtonStatus(index, item.status)"
+          >
+            {{ selectedPrintingItemIndex === index ? '正在打印中' : '打印' }}
+          </button>
+          <button
+            class="ml-2 text-sm text-blue-700 hover:text-blue-500"
+            @click="onDelete(index, item)"
+          >
+            删除
+          </button>
+        </div>
       </div>
-      <div class="flex w-32 min-[320px]:w-full md:w-32">
-        <button
-          class="flex-1 text-sm hover:text-blue-800 rounded border border-gray-400"
-          @click="onPrint(index, item.uid)"
-          :class="{
-            'cursor-not-allowed': printButtonStatus(index, item.status),
-            'opacity-40': printButtonStatus(index, item.status),
-          }"
-          :disabled="printButtonStatus(index, item.status)"
-        >
-          {{ selectedPrintingItemIndex === index ? '正在打印中' : '打印' }}
-        </button>
-        <button
-          class="ml-2 text-sm text-blue-700 hover:text-blue-500"
-          @click="onDelete(index, item)"
-        >
-          删除
-        </button>
-      </div>
-    </div>
+    </template>
+    <div v-else class="text-center p-2 text-gray-400">暂无文件，请点击「上传按钮」进行上传。</div>
   </div>
 </template>
 <script setup>

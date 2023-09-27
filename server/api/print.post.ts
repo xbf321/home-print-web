@@ -1,15 +1,21 @@
+// @ts-nocheck
 import FilesService from '../service/files';
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
   const { uid } = body;
-  let result = false;
+  let response = {
+    isPrintSuccess: false,
+    item: {},
+  };
   try {
-    const { isPrintSuccess, item } = await FilesService.print(uid);
-    result = isPrintSuccess;
-    sendMessageToPusher(`打印 uid 为 ${uid} 的文件成功`, item.filepath);
+    response = await FilesService.print(uid);
   } catch (err) {
-    result = false;
-    sendMessageToPusher(`打印 uid 为 ${uid} 的文件失败`, err);
+    response = {
+      isPrintSuccess: false,
+      item: {},
+    };
+  } finally {
+    sendMessageToPusher(`打印「${uid}」文件${ response.isPrintSuccess ? '成功': '失败'}`, response.item?.filepath);
   }
-  return result;
+  return response.isPrintSuccess;
 });

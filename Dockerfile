@@ -6,7 +6,7 @@ WORKDIR /root/app
 
 COPY . /root/app/
 
-RUN npm install pm2 -g --registry=https://registry.npmmirror.com
+# RUN npm install pm2 -g --registry=https://registry.npmmirror.com
 RUN npm install --registry=https://registry.npmmirror.com
 RUN npm run build
 

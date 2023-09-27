@@ -12,15 +12,14 @@
       ref="inputFileRef"
       name="file"
       @change="onFileChange"
-      :accept="accept"
+      :accept="uploadAcceptFormat"
     />
   </div>
 </template>
 <script setup>
 // https://stackoverflow.com/questions/35711724/upload-progress-indicators-for-fetch
-const accept = 'image/*,.pdf,.doc,.docx,.xls,.xlsx';
+const { public: { uploadAcceptFormat } } = useRuntimeConfig();
 const inputFileRef = ref();
-const req = ref();
 
 const emit = defineEmits(['change']);
 

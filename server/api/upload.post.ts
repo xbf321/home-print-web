@@ -6,24 +6,23 @@ import CloudConvertService from '../service/cloudconvert';
 import formidable from 'formidable';
 
 export default defineEventHandler(async (event) => {
-  const config = useRuntimeConfig();
-  
-  const { uploadDir, needToConvertExts } = config.private;
+  const { private: { uploadDir, needToConvertExts } } = useRuntimeConfig();
 
   const form = formidable({ 
     uploadDir,
     keepExtensions: true,
   });
+
   let uid = '';
   let file = null;
   let result = false;
-
   try {
     const [fields, files] = await form.parse(event.node.req);
-    // [ '1695301172564' ]
+    // 返回格式时：[ '1695301172564' ]
     uid = fields.uid[0];
+    // 同上
     file = files.file[0];
-    useLogInfo(`开始上传文件 uid: ${uid}`);
+    useLogInfo(`上传文件成功， uid: ${uid}。`);
   } catch(err) {
     useLogError(err?.message);
     sendMessageToPusher('上传文件失败。', err);
@@ -34,7 +33,6 @@ export default defineEventHandler(async (event) => {
   let { filepath, mimetype } = file;
   // 是否需要转换
   const extname = path.extname(originalFilename);
-  // 非需要转换，直接返回
   if (needToConvertExts.includes(extname)) {
     const { filepath: convertFilePath, mimetype: convertMimeType} = await CloudConvertService.convert(filepath, mimetype);
     filepath = convertFilePath;

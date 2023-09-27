@@ -34,8 +34,6 @@ await useFetch('/api/get-printer-info', {
 
 watch(printerInfo, () => {
   const { state } = printerInfo;
-  if (state === 'idle') {
-    printerAvailable.value = true;
-  }
+  printerAvailable.value = state === 'idle';
 });
 </script>
