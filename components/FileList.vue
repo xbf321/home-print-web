@@ -1,6 +1,6 @@
 <template>
   <div class="flex-1 h-full overflow-y-auto">
-    <template v-if="data.length > 0">
+    <template v-if="data && data.length > 0">
       <div
         class="border-b py-3 flex min-[320px]:flex-col md:flex-row"
         v-for="(item, index) in data"
