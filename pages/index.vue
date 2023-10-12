@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col h-full over-flow-hidden">
+  <div class="flex flex-col h-full over-flow-hidden mx-auto sm:max-w-3xl lg:max-w-6xl lg:px-0">
     <Uploader @change="onChange" />
     <FileList
       :data="fileList"
@@ -9,18 +9,7 @@
   </div>
 </template>
 <script setup>
-const { data: fileList } = await useFetch('/api/list', {
-  transform: (list) => {
-    return list.map((item) => {
-      const { uid, filename, status } = item;
-      return {
-        uid,
-        filename,
-        status,
-      };
-    });
-  },
-});
+const { data: fileList } = await useFetch('/api/list');
 
 const onChange = (file) => {
   const { uid } = file;

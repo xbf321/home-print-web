@@ -65,6 +65,14 @@ class FilesService {
     return true;
   }
 
+  async getRebootTime() {
+    return await this.db.getData('/rebootTime');
+  }
+
+  async updateRebootTime() {
+    await this.db.push('/rebootTime', new Date().getTime());
+  }
+
   async print(uid) {
     let isPrintSuccess = true;
     const index = await this.db.getIndex('/files', uid, 'uid');

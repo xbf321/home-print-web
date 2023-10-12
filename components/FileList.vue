@@ -2,11 +2,11 @@
   <div class="flex-1 h-full overflow-y-auto">
     <template v-if="data && data.length > 0">
       <div
-        class="border-b py-3 flex min-[320px]:flex-col md:flex-row"
+        class="bg-white border-b border-gray-200 py-4 px-4 flex min-[320px]:flex-col md:flex-row"
         v-for="(item, index) in data"
         :key="item.uid"
       >
-        <h1 class="font-medium flex-1 leading-9 min-[320px]:leading-6 md:leading-9">
+        <h1 class="font-extrabold flex-1 leading-9 min-[320px]:leading-6 md:leading-9">
           #{{ item.uid }} - {{ item.filename }}
         </h1>
         <div class="mr-4 leading-9 min-[320px]:mr-0 md:mr-4">
@@ -28,7 +28,7 @@
             {{ selectedPrintingItemIndex === index ? '正在打印中' : '打印' }}
           </button>
           <button
-            class="ml-2 text-sm text-blue-700 hover:text-blue-500"
+            class="ml-4 text-sm text-blue-700 hover:text-blue-500"
             @click="onDelete(index, item)"
           >
             删除
