@@ -1,23 +1,32 @@
-# home-print-web
+# Web-Print System
 
-使用 IPP 协议，无需打印机驱动，通过 Web 页面调用家里打印机打印文件。如下图：
+通过 Web 页面调用家里打印机打印文件，本机无需打印机驱动（使用 IPP 协议），同时支持手机内使用。如下图：
 
 ![image](https://p1.meituan.net/travelcube/c2ee459d863c42b77242ff22cc349c9a910526.gif)
 
-目前自己使用 Docker 部署到 openwrt 路由器里。
+原理：
 
-> 如果IPP打印机可以通过外网访问，可以不用和打印机同一个网络。
+Web-Print System -> CUPS -> Printer。
 
-平台基于 [Nuxt](https://nuxt.com/)。
+* Web-Print System 使用 IPP 协议和 CUPS 通信。
+* CUPS 使用 USB 9100 端口和 打印机 通信。
 
-* CSS 基于[tailwindcss](https://tailwindcss.com/)
-* JSON 存储基于[node-json-db](https://github.com/Belphemur/node-json-db)
-* IPP 协议基于 [IPP](https://github.com/williamkapke/ipp) 包
-* 因为 CUPS 不支持 word/excel 打印，针对这些文件使用[CloudConver](https://cloudconvert.com/)转换
-* 程序发送消息到设备，基于[message-pusher](https://github.com/songquanpeng/message-pusher)，部署在内网。
-* 默认 Nitro 不包含日志输出到文件，因此使用 [winston](https://github.com/winstonjs/winston) 包处理日志。
-* 文件上传时保存至物理文件夹，基于[formidable](https://www.npmjs.com/package/formidable)
-* Toast 提示使用[vue-toast-notification](https://www.npmjs.com/package/vue-toast-notification)
+
+当前使用 Docker 部署到 openwrt 路由器中。
+
+> 如果IPP打印机可以通过外网访问，可以不用和打印机在同一个网络。
+
+基于 [Nuxt](https://nuxt.com/)。
+
+* CSS 基于[tailwindcss](https://tailwindcss.com/)。
+* JSON 存储基于[node-json-db](https://github.com/Belphemur/node-json-db)。
+* IPP 协议基于 [IPP](https://github.com/williamkapke/ipp) NPM包。
+* CUPS 不支持 word/excel 打印，使用[CloudConver](https://cloudconvert.com/)服务进行转换后在打印。
+* 打印成功或失败，使用 [message-pusher](https://github.com/songquanpeng/message-pusher) 通知到自己手机。
+* 默认 Nitro 不包含日志输出到文件，因此使用 [winston](https://github.com/winstonjs/winston) 包处理日志。目的是程序出现任何异常，需要通知到用户（自己手机）。
+* 上传文件保存至物理文件夹，基于[formidable](https://www.npmjs.com/package/formidable)。
+* Toast 提示使用[vue-toast-notification](https://www.npmjs.com/package/vue-toast-notification)。
+* 获取本机 IP ，基于[IP](https://www.npmjs.com/package/ip) NPM 包
 
 ## docker-compose 部署方式
 
@@ -70,7 +79,7 @@ npm run dev
 open http://localhost:7020/
 ```
 
-Docker 镜像一些操作
+Docker 其他操作
 
 ```shell
 # 构建 image
