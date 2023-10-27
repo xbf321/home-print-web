@@ -15,7 +15,7 @@
         </span>
       </div>
       <button
-        class="rounded border px-4 bg-green-500 text-sm font-medium text-white hover:bg-green-600 focus:outline-none  cursor-pointer h-8 mt-1"
+        class="rounded border px-4 bg-green-500 text-sm font-medium text-white hover:bg-green-600 focus:outline-none cursor-pointer h-8 mt-1"
         @click="onRebootPrinter"
       >
         重启打印机
@@ -24,8 +24,7 @@
   </div>
 </template>
 <script setup>
-import { useToast } from 'vue-toast-notification';
-const $toast = useToast();
+const { $toast } = useNuxtApp();
 const printerAvailable = usePrinterAvailable();
 const printerInfo = reactive({
   state: '',

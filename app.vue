@@ -5,10 +5,10 @@
 </template>
 <script setup>
 useSeoMeta({
-  title: 'Web Print Service Platform',
-  ogTitle: 'Web Print Service Platform',
-  description: 'Web Print Service Platform',
-  ogDescription: 'Web Print Service Platform',
+  title: 'Web-Print System',
+  ogTitle: 'Web-Print System',
+  description: 'Web-Print System',
+  ogDescription: 'Web-Print System',
 });
 import 'vue-toast-notification/dist/theme-sugar.css';
 </script>

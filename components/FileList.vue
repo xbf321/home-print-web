@@ -40,11 +40,10 @@
   </div>
 </template>
 <script setup>
+const { $toast } = useNuxtApp();
 const printerAvailable = usePrinterAvailable();
-import { useToast } from 'vue-toast-notification';
-const selectedPrintingItemIndex = ref(-1);
 
-const $toast = useToast();
+const selectedPrintingItemIndex = ref(-1);
 
 const props = defineProps({
   data: { type: Array, default: () => [], require: true },
