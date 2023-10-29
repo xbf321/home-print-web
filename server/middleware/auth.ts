@@ -1,9 +1,8 @@
 // @ts-nocheck
-import ip from 'ip';
 export default defineEventHandler((event) => {
   // 如果是内网环境，忽略登陆
-  const myIP = ip.address();
-  if (!!!myIP.match(/^192/)) {
+  const { host } = event.node.req.headers;
+  if (!!host.match(/^printer-web\.frp/)) {
     const { authUserName, authUserPassword } = useServerRuntimeConfig();
     const headers = getRequestHeaders(event);
     const authHeader = headers.authorization;

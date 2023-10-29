@@ -26,7 +26,6 @@ Web-Print System -> CUPS -> Printer。
 * 默认 Nitro 不包含日志输出到文件，因此使用 [winston](https://github.com/winstonjs/winston) 包处理日志。目的是程序出现任何异常，需要通知到用户（自己手机）。
 * 上传文件保存至物理文件夹，基于[formidable](https://www.npmjs.com/package/formidable)。
 * Toast 提示使用[vue-toast-notification](https://www.npmjs.com/package/vue-toast-notification)。
-* 获取本机 IP ，基于[IP](https://www.npmjs.com/package/ip) NPM 包
 
 ## docker-compose 部署方式
 
