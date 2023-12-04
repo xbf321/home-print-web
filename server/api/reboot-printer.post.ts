@@ -5,6 +5,7 @@ export default defineEventHandler(async () => {
     status: true,
     message: '',
   };
+  const { rebootURL } = useServerRuntimeConfig();
   // 1小时内禁止重复重启
   const MIN_HOUR_DIFF = 1;
   try {
@@ -22,7 +23,9 @@ export default defineEventHandler(async () => {
       info.message = `${MIN_HOUR_DIFF} 小时内，禁止重复重启。`;
       return info;
     }
-    // TODO: 重启，调用 shell
+    // 重启，调用 rebootURL
+    $fetch(rebootURL);
+    
     // 更新重启时间
     await FilesService.updateRebootTime();
   } catch(err) {

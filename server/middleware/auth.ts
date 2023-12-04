@@ -1,8 +1,15 @@
 // @ts-nocheck
-export default defineEventHandler((event) => {
-  // 如果是内网环境，忽略登陆
+import ping from 'ping';
+
+export default defineEventHandler(async (event) => {
+  // 内外网都是使用同一个域名访问
+  // 所以这里对域名进行 ping 
+  // 如果非公网，忽略校验，反之
   const { host } = event.node.req.headers;
-  if (!!host.match(/^printer-web\.frp/)) {
+  const { numeric_host: targetIP } = await ping.promise.probe([host], {
+    timeout: 2,
+  });
+  if (!targetIP.match(/^127\./) || !targetIP.match(/^192\./)) {
     const { authUserName, authUserPassword } = useServerRuntimeConfig();
     const headers = getRequestHeaders(event);
     const authHeader = headers.authorization;

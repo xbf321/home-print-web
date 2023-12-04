@@ -41,14 +41,10 @@ services:
     ports:
       - 7020:7020
     environment:
-      # 默认：http://192.168.100.1:631/printers/HP1106
-      # - PRINTER=http://192.168.100.1:631/printers/HP1106
       # 登录用户名和密码默认都是 test
       - AUTH_USER_NAME=test
       - AUTH_USER_PASSWORD=test
-      # 默认：http://192.168.100.1:7030/push/root
-      # 日志发送到PushServer中
-      # - MESSAGE_PUSHER_SERVER=http://192.168.100.1:7030/push/root
+      - MESSAGE_PUSHER_SERVER_TOKEN=token
       # CloudConvert 访问 token ，用于把 word 格式转换为 pdf 格式
       - CLOUDCONVERT_ACCESS_TOKEN=token
 ```

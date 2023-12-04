@@ -5,7 +5,10 @@ export default defineNuxtConfig({
   },
   pages: true,
   app: {
-    pageTransition: { name: 'page', mode: 'out-in' }
+    pageTransition: { name: 'page', mode: 'out-in' },
+    head: {
+      link: [{ rel: 'shortcut icon', href: 'https://www.hp-smart.cn/favicons/favicon.ico' }]
+    }
   },
   modules: [
     '@nuxtjs/tailwindcss'

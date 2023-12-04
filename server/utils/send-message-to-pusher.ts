@@ -1,6 +1,6 @@
 // @ts-nocheck
 const sendMessageToPusher = async (description, content) => {
-  const { messagePusherServer } = useServerRuntimeConfig();
+  const { messagePusherServer, messagePusherServerToken: token } = useServerRuntimeConfig();
   const isDev = process.env.NODE_ENV === 'development';
   if (!messagePusherServer || isDev) {
     return;
@@ -23,9 +23,10 @@ const sendMessageToPusher = async (description, content) => {
     await $fetch(messagePusherServer, {
       method: 'POST',
       body: {
-        title: 'Site: home-print-web',
+        title: '[INFO] The file has been printed.',
         description,
         content,
+        token,
       }
     });
   } catch(err) {
