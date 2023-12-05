@@ -5,6 +5,7 @@
   "private": true,
   "dependencies": {
     "cloudconvert": "^2.3.4",
+    "dayjs": "^1.11.10",
     "formidable": "v3",
     "fs-extra": "^11.1.1",
     "ipp": "^2.0.1",

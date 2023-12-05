@@ -5,11 +5,12 @@ export default defineEventHandler(async () => {
   try {
     const files = await FilesService.list();
     filterResult = files.map((item) => {
-      const { uid, filename, status } = item;
+      const { uid, filename, status, date } = item;
       return {
         uid,
         filename,
         status,
+        date,
       };
     });
   } catch(err) {

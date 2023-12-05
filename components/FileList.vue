@@ -7,13 +7,14 @@
         :key="item.uid"
       >
         <h1 class="font-extrabold flex-1 leading-9 min-[320px]:leading-6 md:leading-9">
-          #{{ item.uid }} - {{ item.filename }}
+          {{ item.filename }}
         </h1>
         <div class="mr-4 leading-9 min-[320px]:mr-0 md:mr-4">
           <span class="p-1 bg-green-500 text-white text-xs" :class="item.status">
             {{ item.status }}
             {{ statusChineseMap[item.status] }}
           </span>
+          <span class="ml-2 text-gray-400 text-xs">{{item.date}}</span>
         </div>
         <div class="flex w-32 min-[320px]:w-full md:w-32">
           <button
