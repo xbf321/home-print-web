@@ -1,7 +1,6 @@
 // @ts-nocheck
 const sendMessageToPusher = async (description, content) => {
-  const { messagePusherServer, messagePusherServerToken: token } = useServerRuntimeConfig();
-  const isDev = process.env.NODE_ENV === 'development';
+  const { isDev, messagePusherServer, messagePusherServerToken: token } = useServerRuntimeConfig();
   if (!messagePusherServer || isDev) {
     return;
   }

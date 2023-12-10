@@ -85,7 +85,7 @@ docker push xbf321/home-print-web:latest
 
 # 创建容器
 # 后台运行
-docker run -d -p 7020:7020 -e CLOUDCONVERT_ACCESS_TOKEN=token -e AUTH_USER_NAME=aaa -e AUTH_USER_PASSWORD=aaa  --name home-print-web xbf321/home-print-web:latest
+docker run -d -p 7020:7020 -e CLOUDCONVERT_ACCESS_TOKEN=token -e AUTH_USER_NAME=aaa -e AUTH_USER_PASSWORD=aaa -e MESSAGE_PUSHER_SERVER_TOKEN=token  --name home-print-web xbf321/home-print-web:latest
 # 临时运行
 docker run -it --name home-print-web xbf321/home-print-web /bin/bash
 # 进入容器内部

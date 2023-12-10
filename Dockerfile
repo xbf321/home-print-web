@@ -12,6 +12,7 @@ RUN npm run build
 
 
 ENV PORT=7020
+ENV NODE_ENV=production
 
 EXPOSE 7020
 

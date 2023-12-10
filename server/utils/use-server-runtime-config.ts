@@ -6,6 +6,7 @@ const useServerRuntimeConfig = () => {
   const authUserName = process.env.AUTH_USER_NAME || 'test';
   const authUserPassword = process.env.AUTH_USER_PASSWORD || 'test';
   const cloudconvertAccesstoken = process.env.CLOUDCONVERT_ACCESS_TOKEN || '';
+  const isDev = process.env.NODE_ENV === 'development';
   
   return {
     printer,
@@ -15,6 +16,7 @@ const useServerRuntimeConfig = () => {
     messagePusherServer,
     messagePusherServerToken,
     cloudconvertAccesstoken,
+    isDev,
   };
 };
 export default useServerRuntimeConfig;
