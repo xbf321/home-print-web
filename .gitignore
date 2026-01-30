@@ -2,8 +2,6 @@ logs/
 npm-debug.log
 yarn-error.log
 node_modules/
-*-lock.json
-*-lock.yaml
 yarn.lock
 coverage/
 .idea/
@@ -22,7 +20,8 @@ uploads/*.doc
 uploads/*.docx
 uploads/*.xls
 uploads/*.xlsx
+uploads/*.txt
 .github
 config/db.*
-.nuxt
+.next
 .output

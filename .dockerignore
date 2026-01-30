@@ -1,12 +1,7 @@
-npm-debug.log
-yarn-error.log
+Dockerfile
+.dockerignore
 node_modules
-tsconfig.json
-jsconfig.json
-logs
-package-lock.json
-.prettierrc.json
-.gitignore
+npm-debug.log
+README.md
+.next
 .git
-.github
-yarn.lock

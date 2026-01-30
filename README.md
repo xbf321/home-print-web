@@ -16,30 +16,28 @@ Web-Print System -> CUPS -> Printer。
 
 > 如果IPP打印机可以通过外网访问，可以不用和打印机在同一个网络。
 
-基于 [Nuxt](https://nuxt.com/)。
+基于 [Nextjs](https://nextjs.org/)。
 
 * CSS 基于[tailwindcss](https://tailwindcss.com/)。
 * JSON 存储基于[node-json-db](https://github.com/Belphemur/node-json-db)。
 * IPP 协议基于 [IPP](https://github.com/williamkapke/ipp) NPM包。
+* IPP 文档[RFC2910](https://datatracker.ietf.org/doc/html/rfc2910)
 * CUPS 不支持 word/excel 打印，使用[CloudConver](https://cloudconvert.com/)服务进行转换后在打印。
 * 打印成功或失败，使用 [message-pusher](https://github.com/songquanpeng/message-pusher) 通知到自己手机。
-* 默认 Nitro 不包含日志输出到文件，因此使用 [winston](https://github.com/winstonjs/winston) 包处理日志。目的是程序出现任何异常，需要通知到用户（自己手机）。
-* 上传文件保存至物理文件夹，基于[formidable](https://www.npmjs.com/package/formidable)。
-* Toast 提示使用[vue-toast-notification](https://www.npmjs.com/package/vue-toast-notification)。
+* [AntdUI](https://ant.design/)
 
 ## docker-compose 部署方式
 
 新建 **docker-compose.yaml** 文件，内容如下：
 
 ```shell
-version: '3.9'
 services:
   home-print-web:
     image: xbf321/home-print-web:latest
     container_name: home-print-web
     restart: unless-stopped
     ports:
-      - 7020:7020
+      - 7060:7060
     environment:
       # 登录用户名和密码默认都是 test
       - AUTH_USER_NAME=test
@@ -71,14 +69,14 @@ docker-compose up -d
 ```bash
 npm i
 npm run dev
-open http://localhost:7020/
+open http://localhost:7060/
 ```
 
 Docker 其他操作
 
 ```shell
 # 构建 image
-docker build --no-cache -t xbf321/home-print-web .
+docker build -t xbf321/home-print-web .
 
 # 发布到 hub.docker.io
 docker push xbf321/home-print-web:latest
